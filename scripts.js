@@ -26,13 +26,7 @@ return {getName , getMarker };
 const newPlayer = player('dashaq', 'x');
 console.log(`Hi im ${newPlayer.getName()} and my marker is ${newPlayer.getMarker()}`);
 
-function gameController = () => {
-    const player1 = player('player 1' ,'X');
-    const player2 = player('player 2' ,'O');
-    let currentPlayer = player1;
-    let gameOver = false;
-
-    const playRound = (index) => {
+const playRound = (index) => {
         if(gameOver) return;
         const board = gameBoard.gameBoard();
 
@@ -44,6 +38,15 @@ function gameController = () => {
             console.log(`${currentPlayer} Wins the battle !`);
             return
         }
-        
+        if (board.forEach(square =>square !=="" {
+            gameOver = true;
+            console.log("Tie")
+            return 
+        });)
     }
-}
+
+    const WIN_LINES = [
+  [0,1,2],[3,4,5],[6,7,8],
+  [0,3,6],[1,4,7],[2,5,8],
+  [0,4,8],[2,4,6] 
+];
