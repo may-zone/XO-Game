@@ -15,7 +15,6 @@ function gameBoard (){
     };
     return { getBoard, setMark, resetBoard};
 }
-console.log("gameBoard is Working !")
 
 function player (name,marker){
     const getName = () => name;
@@ -23,46 +22,113 @@ function player (name,marker){
 
 return {getName , getMarker };
 }
-const newPlayer = player('dashaq', 'x');
+const newPlayer = player('dashaq', 'X');
 console.log(`Hi im ${newPlayer.getName()} and my marker is ${newPlayer.getMarker()}`);
 
-const playRound = (index) => {
-        if(gameOver) return;
-        const board = gameBoard.gameBoard();
+const game = (() => {
+  const boardAPI = gameBoard();
 
-        if(board[index] !=="") return;
-        gameBoard.updateBoard(index,currentPlayer.marker);
-        
-        if(checkWinner(board)){
-            gameOver = true;
-            console.log(`${currentPlayer} Wins the battle !`);
-            return
-        }
-        if (board.forEach(square =>square !=="" {
-            gameOver = true;
-            console.log("Tie");
-            return ;
-            switchPlayer ();
-        }));
-        const switchPlayer =() => {
-            currentPlayer = currentPlayer === player1 ?player2:player1;
-        } 
-        const checkWinner = (board) =>{ 
-        const winlines = [
-      [0,1,2],[3,4,5],[6,7,8],
-      [0,3,6],[1,4,7],[2,5,8],
-      [0,4,8],[2,4,6] 
-      ];
-      return winlines.some(combo =>
-        combo.every(i => board[i] === currentPlayer.marker );
-      );
-    };
-    const getcurrentPlayer = () => currentPlayer;
+  const player1 = player("dashaq", "X");
+  const player2 = player("rival",  "O");
 
-    const resetGame = () => {
-        gameBoard.resetBoard();
-        currentPlayer = player1;
-        gameOver=false;
-      }
-      return { playRound ,getcurrentPlayer ,resetGame}
+  let currentPlayer = player1;
+  let gameOver = false;
+
+  const WIN_LINES = [
+    [0,1,2],[3,4,5],[6,7,8],
+    [0,3,6],[1,4,7],[2,5,8],
+    [0,4,8],[2,4,6]
+  ];
+
+  const checkWinner = (board) =>
+    WIN_LINES.some(([a,b,c]) => {
+      const m = board[a];
+      return m !== "" && m === board[b] && m === board[c];
+    });
+
+  const switchPlayer = () => {
+    currentPlayer = (currentPlayer === player1) ? player2 : player1;
+  };
+
+  const playRound = (index) => {
+    if (gameOver) return false;
+
+    const placed = boardAPI.setMark(index, currentPlayer.getMarker());
+    if (!placed) return false; 
+    const board = boardAPI.getBoard();
+
+    if (checkWinner(board)) {
+      gameOver = true;
+      console.log(`${currentPlayer.getName()} wins the battle!`);
+      return "win";
     }
+
+    if (board.every(cell => cell !== "")) {
+      gameOver = true;
+      console.log("Tie");
+      return "tie";
+    }
+
+    switchPlayer();
+    return "continue";
+  };
+
+  const getCurrentPlayer = () => currentPlayer;
+  const getBoard = () => boardAPI.getBoard();
+  const resetGame = () => {
+    boardAPI.resetBoard();
+    currentPlayer = player1;
+    gameOver = false;
+  };
+
+  return { playRound, getCurrentPlayer, resetGame, getBoard };
+})();
+
+console.log("gameBoard is Working !");
+console.log(`Hi im ${game.getCurrentPlayer().getName()} and my marker is ${game.getCurrentPlayer().getMarker()}`);
+document.addEventListener("DOMContentLoaded", () => {
+  const squares = document.querySelectorAll(".square");
+  const resultEl = document.querySelector(".result");
+  const resetBtn = document.querySelector(".btn");
+
+  const render = () => {
+    const board = game.getBoard();
+    squares.forEach((sq) => {
+      const idx = Number(sq.id) - 1; // چون id ها 1..9 هستن
+      sq.textContent = board[idx];   // X / O یا خالی
+    });
+
+    // پیام وضعیت
+    // اگر بازی ادامه دارد، نوبت فعلی را نشان بده
+    resultEl.textContent = `Turn: ${game.getCurrentPlayer().getName()} (${game.getCurrentPlayer().getMarker()})`;
+  };
+
+  squares.forEach((sq) => {
+    sq.addEventListener("click", () => {
+      const idx = Number(sq.id) - 1;
+      const outcome = game.playRound(idx);
+
+      // اگر حرکت نامعتبر بود (خانه پر یا بازی تمام) فقط رندر کن
+      if (outcome === false) {
+        render();
+        return;
+      }
+
+      render();
+
+      if (outcome === "win") {
+        resultEl.textContent = `${game.getCurrentPlayer().getName()} (${game.getCurrentPlayer().getMarker()}) wins!`;
+      } else if (outcome === "tie") {
+        resultEl.textContent = "Tie game!";
+      }
+    });
+  });
+
+  resetBtn.addEventListener("click", () => {
+    game.resetGame();
+    render();
+  });
+
+  // شروع
+  render();
+});
