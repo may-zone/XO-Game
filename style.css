@@ -22,7 +22,6 @@ body{
     }
 }
 header {
-    border: black solid;
     margin-left: 4px;
     position: fixed;
     top: 16px;
@@ -30,7 +29,17 @@ header {
     z-index: 10;
     width: 100%;
     height: 10%;
- 
+}
+header h1 {
+  font-size: 2rem;
+  color: transparent;
+  background: rgba(7, 7, 7, 5);
+  -webkit-background-clip: text; 
+  background-clip: text;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  text-shadow: 0 0 10px rgba(243, 14, 14, 0.5);
+  font-weight: bold;
 }
 .container {
     display: grid;
