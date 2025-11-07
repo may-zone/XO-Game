@@ -61,8 +61,21 @@ header h1 {
     display: flex;
     align-items: center;
     justify-content: center;
+    cursor: pointer;
 
 }
+
+.square:hover {
+  background-color: rgba(218, 24, 24, 0.452);
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(0, 255, 0, 0.4);
+}
+
+.square:active {
+  transform: scale(0.95);
+  box-shadow: 0 0 5px rgba(0, 255, 0, 0.6) inset;
+}
+
 .btn {
   position: relative;
   display: inline-flex;
