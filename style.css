@@ -43,7 +43,6 @@ header h1 {
 }
 .container {
     display: grid;
-    border: red solid;
     width: min(90vmin ,520px);
     height: auto;
     grid-template-columns: repeat(3,1fr);
@@ -51,7 +50,6 @@ header h1 {
     margin: auto 0;
 }
 .square{
-    border: green solid;
     aspect-ratio: 1/1;
     width: 100%;
     background: rgba(0, 0, 0, 0.5);
