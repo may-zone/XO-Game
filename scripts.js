@@ -96,14 +96,24 @@ document.addEventListener("DOMContentLoaded", () => {
   const resultEl = document.querySelector(".result");
   const resetBtn = document.querySelector(".btn");
 
-  const render = () => {
-    const board = game.getBoard();
-    squares.forEach((sq) => {
-      const idx = Number(sq.id) - 1; 
-      sq.textContent = board[idx];  
-    });
-    resultEl.textContent = `Turn: ${game.getCurrentPlayer().getName()} (${game.getCurrentPlayer().getMarker()})`;
-  };
+const render = () => {
+  const board = game.getBoard();
+
+  squares.forEach((sq) => {
+    const idx  = Number(sq.id) - 1;
+    const mark = board[idx] || "";   // ← تعریف mark
+
+    sq.textContent = mark;
+
+    // استایل نئونی برای X / O
+    sq.classList.remove("x", "o");
+    if (mark === "X") sq.classList.add("x");
+    else if (mark === "O") sq.classList.add("o");
+  });
+
+  resultEl.textContent =
+    `Turn: ${game.getCurrentPlayer().getName()} (${game.getCurrentPlayer().getMarker()})`;
+};
 
   squares.forEach((sq) => {
     sq.addEventListener("click", () => {
