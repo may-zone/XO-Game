@@ -40,13 +40,29 @@ const playRound = (index) => {
         }
         if (board.forEach(square =>square !=="" {
             gameOver = true;
-            console.log("Tie")
-            return 
-        });)
-    }
+            console.log("Tie");
+            return ;
+            switchPlayer ();
+        }));
+        const switchPlayer =() => {
+            currentPlayer = currentPlayer === player1 ?player2:player1;
+        } 
+        const checkWinner = (board) =>{ 
+        const winlines = [
+      [0,1,2],[3,4,5],[6,7,8],
+      [0,3,6],[1,4,7],[2,5,8],
+      [0,4,8],[2,4,6] 
+      ];
+      return winlines.some(combo =>
+        combo.every(i => board[i] === currentPlayer.marker );
+      );
+    };
+    const getcurrentPlayer = () => currentPlayer;
 
-    const WIN_LINES = [
-  [0,1,2],[3,4,5],[6,7,8],
-  [0,3,6],[1,4,7],[2,5,8],
-  [0,4,8],[2,4,6] 
-];
+    const resetGame = () => {
+        gameBoard.resetBoard();
+        currentPlayer = player1;
+        gameOver=false;
+      }
+      return { playRound ,getcurrentPlayer ,resetGame}
+    }
