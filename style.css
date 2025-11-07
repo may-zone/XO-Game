@@ -1,0 +1,28 @@
+body{
+    margin: 0;
+    pad: 0;
+}
+header {
+    border: black solid;
+    margin-left:  35px;
+}
+.container {
+    display: grid;
+    border: red solid;
+    width: min(90vmin ,520px);
+    height: auto;
+    grid-template-columns: repeat(3,1fr);
+    gap: 2px;
+    margin: 0 auto;
+
+}
+.square{
+    border: green solid;
+    aspect-ratio: 1/1;
+    width: 100%;
+
+}
+.btn{
+    position:absolute;
+    
+}
