@@ -32,6 +32,38 @@
     <footer>
         made with ❤️ by May .
     </footer>
+
+     <div id="startModal" class="modal">
+    <div class="modal-content">
+      <h2>Start New Game</h2>
+      <form id="startForm">
+        <div class="row">
+          <label>Player 1 name
+            <input type="text" id="p1Name" placeholder="Player 1" required>
+          </label>
+          <fieldset class="marker-group">
+            <legend>Marker</legend>
+            <label><input type="radio" name="p1Marker" value="X" checked> X</label>
+            <label><input type="radio" name="p1Marker" value="O"> O</label>
+          </fieldset>
+        </div>
+
+        <div class="row">
+          <label>Player 2 name
+            <input type="text" id="p2Name" placeholder="Player 2" required>
+          </label>
+          <div class="marker-hint">
+            Player 2 gets the opposite marker automatically.
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn primary">Start</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
     <script src="scripts.js" defer></script>
 </body>
 

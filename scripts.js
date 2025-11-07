@@ -23,7 +23,6 @@ function player (name,marker){
 return {getName , getMarker };
 }
 const newPlayer = player('dashaq', 'X');
-console.log(`Hi im ${newPlayer.getName()} and my marker is ${newPlayer.getMarker()}`);
 
 const game = (() => {
   const boardAPI = gameBoard();
@@ -84,14 +83,13 @@ const game = (() => {
   return { playRound, getCurrentPlayer, resetGame, getBoard };
 })();
 
-console.log("gameBoard is Working !");
-console.log(`Hi im ${game.getCurrentPlayer().getName()} and my marker is ${game.getCurrentPlayer().getMarker()}`);
 document.addEventListener("DOMContentLoaded", () => {
   const squares = document.querySelectorAll(".square");
   const resultEl = document.querySelector(".result");
   const resetBtn = document.querySelector(".btn");
 
   const render = () => {
+    
     const board = game.getBoard();
     squares.forEach((sq) => {
       const idx = Number(sq.id) - 1; // چون id ها 1..9 هستن
