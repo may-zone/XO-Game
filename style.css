@@ -56,6 +56,11 @@ header h1 {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(6px);
     border-radius: 10px;
+    font-size: xx-large;
+    font-weight: 900;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
 }
 .btn {
