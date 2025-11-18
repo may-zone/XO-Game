@@ -31,3 +31,6 @@ XO-Game
 1. Add an AI opponent with multiple difficulty levels.
 2. Persist match history or scores using `localStorage`.
 3. Trigger celebratory animations or sounds for wins and ties.
+
+## License
+Released under the [MIT License](LICENSE).
